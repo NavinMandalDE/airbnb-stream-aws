@@ -22,5 +22,5 @@ phases:
       - aws lambda update-function-code --function-name airbnb-eb-enrichment --s3-bucket bkt-lambda-builds-zip --s3-key deployment_package_enrichment.zip
       - aws lambda update-function-configuration --function-name airbnb-producer --handler lambda_producer.lambda_handler
       - aws lambda update-function-configuration --function-name airbnb-consumer --handler lambda_consumer.lambda_handler
-      - aws lambda update-function-configuration --function-name airbnb-eb_enrichment --handler lambda_enrichment.lambda_handler
+      - aws lambda update-function-configuration --function-name airbnb-eb-enrichment --handler lambda_enrichment.lambda_handler
       - echo "Deployment complete!"
