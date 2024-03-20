@@ -19,18 +19,11 @@ def lambda_handler(event, context):
             record_tf = transform(record)
             data_tf.append(record_tf)
 
-        # Generate a timestamp for the file name
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        print(f"Transformed data.")
 
-        # Define the output file name with timestamp
-        output_file_name = f"airbnb_tf_{timestamp}.json"
-
-        # Write the JSON list to the output file
-        with open(output_file_name, "w") as output_file:
-            json.dump(data_tf, output_file, indent=4)
-
-        print(f"Transformed data has been written to {output_file_name}")
-
+        for record in data_tf:
+            print(record)
+            
         return {
             'statusCode': 200,
             'body': json.dumps('Data transformation - SUCCESSFUL!')
