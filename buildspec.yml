@@ -1,0 +1,20 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo "No dependencies required..."
+  build:
+    commands:
+      - zip deployment_package_producer.zip lambda_producer.py 
+      - zip deployment_package_consumer.zip lambda_consumer.py 
+  post_build:
+    commands:
+      - echo "Uploading to S3..."
+      - aws s3 cp deployment_package_producer.zip s3://bkt-lambda-builds-zip/
+      - aws s3 cp deployment_package_consumer.zip s3://bkt-lambda-builds-zip/
+      - echo "Updating Lambda function via S3..."
+      - aws lambda update-function-code --function-name airbnb-producer --s3-bucket bkt-lambda-builds-zip --s3-key deployment_package_producer.zip
+      - aws lambda update-function-code --function-name airbnb-consumer --s3-bucket bkt-lambda-builds-zip --s3-key deployment_package_consumer.zip
+      - echo "Deployment complete!"
