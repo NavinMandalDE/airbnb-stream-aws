@@ -83,5 +83,6 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'body': json.dumps('Data publish to SQS - SUCCESSFUL!')
         }
-    except:
+    except Exception as err:
+        print(err)
         print('Data publish to SQS - FAILED!')
