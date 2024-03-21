@@ -5,7 +5,7 @@ from datetime import datetime
 s3 = boto3.client('s3')
 bucket_name = 'airbnb-stream-data'
 timestamp = datetime.now().strftime("%Y%m%d") #_%H%M%S
-file_key = f'path/to/your/airbnb_stream_{timestamp}.json'
+file_key = f'data/airbnb_stream_{timestamp}.json'
 
 def lambda_handler(event, context):
     try:
