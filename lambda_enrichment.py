@@ -13,9 +13,9 @@ def lambda_handler(event, context):
     data_tf = []
     try:
         print("Starting Transformation Process...")
-        print(f"Processing {len(event['Records'])} records...")
+        print(f"Processing {len(event['Records'][0]['body'])} records...")
         
-        for record in event['Records']:
+        for record in event['Records'][0]['body']:
             record_tf = transform(record)
             data_tf.append(record_tf)
 
@@ -23,11 +23,13 @@ def lambda_handler(event, context):
 
         for record in data_tf:
             print(record)
-            
+
+        
         return {
             'statusCode': 200,
             'body': json.dumps('Data transformation - SUCCESSFUL!')
         }
     
-    except:
+    except Exception as err:
+        print(err)
         print('Data transformation - FAILED!')
