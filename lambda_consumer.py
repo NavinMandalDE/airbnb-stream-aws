@@ -10,9 +10,11 @@ file_key = f'data/airbnb_stream_{timestamp}.json'
 def lambda_handler(event, context):
     try:
         print("Starting SQS Batch Process...")
-        print(f"Processing {len(event['Records'][0]['body'])} records...")
         
-        for record in event['Records'][0]['body']:
+        list_records = json.loads(event[0]['body'])
+        print(f"Processing records...")
+        
+        for record in list_records:
             content_to_write = json.dumps(record)
 
         # Check if the file already exists in the bucket
@@ -43,4 +45,6 @@ def lambda_handler(event, context):
     except Exception as err:
         print(err)
         print('Data consumption - FAILED!')
+
+
 
